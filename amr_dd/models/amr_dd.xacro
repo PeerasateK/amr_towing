@@ -1,0 +1,616 @@
+<?xml version='1.0'?>
+
+<robot name="m2wr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+    <material name="blue">
+        <color rgba="0.203125 0.23828125 0.28515625 1.0"/>
+    </material>
+    <material name="green">
+        <color rgba="0.0 0.8 0.0 1.0"/>
+    </material>
+    <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+    <material name="orange">
+        <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+    </material>
+    <material name="brown">
+        <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+    </material>
+    <material name="red">
+        <color rgba="0.80078125 0.12890625 0.1328125 1.0"/>
+    </material>
+    <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+    </material>
+
+    <gazebo reference="chassis">
+        <material>Gazebo/Orange</material>
+    </gazebo>
+    <gazebo reference="left_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="right_wheel">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    <gazebo reference="hook">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <gazebo reference="cart">
+        <material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="left_cart_wheel">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <gazebo reference="right_cart_wheel">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo>
+        <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+            <legacyMode>false</legacyMode>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>20</updateRate>
+            <leftJoint>joint_left_wheel</leftJoint>
+            <rightJoint>joint_right_wheel</rightJoint>
+            <wheelSeparation>0.76</wheelSeparation>
+            <wheelDiameter>0.16</wheelDiameter>
+            <torque>0.1</torque>
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>chassis</robotBaseFrame>
+        </plugin>
+
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/amr_dd</robotNamespace>
+        </plugin>
+    </gazebo>
+    
+
+
+    <link name='chassis'>
+        <!-- pose and inertial -->
+        <pose>0 0 0.185 0 0 0</pose>
+        <inertial>
+            <mass value="120"/>
+            <origin rpy="0 0 0" xyz="0 0 0.185"/>
+            <inertia ixx="0.0395416666667" ixy="0" ixz="0" iyy="0.106208333333" iyz="0" izz="0.106208333333"/>
+        </inertial>
+
+        <!-- body -->
+        <collision name='chassis_collision'>
+            <geometry>
+                <box size="1 0.8 0.3"/>
+            </geometry>
+        </collision>
+        <visual name='chassis_visual'>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="1 0.8 0.3"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        
+        <!-- caster -->
+        <collision name='caster_collision_TL'>
+            <origin rpy="0 0 0" xyz="0.45 0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+            </collision>
+            <visual name='caster_visual_TL'>
+                <origin rpy="0 0 0" xyz="0.45 0.35 -0.135"/>
+                <geometry>
+                    <sphere radius="0.05"/>
+                </geometry>
+            </visual>
+
+        <collision name='caster_collision_TR'>
+            <origin rpy="0 0 0" xyz="0.45 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='caster_visual_TR'>
+            <origin rpy="0 0 0" xyz="0.45 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
+        <collision name='caster_collision_BL'>
+            <origin rpy="0 0 0" xyz="-0.45 0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='caster_visual_BL'>
+            <origin rpy="0 0 0" xyz="-0.45 0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
+        <collision name='caster_collision_BR'>
+            <origin rpy="0 0 0" xyz="-0.45 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='caster_visual_BR'>
+            <origin rpy="0 0 0" xyz="-0.45 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
+        <collision name='poll_collision'>
+            <origin rpy="0 0 0" xyz="0 0 0.25"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.2"/>
+            </geometry>
+        </collision>
+        <visual name='poll_visual'>
+            <origin rpy="0 0 0" xyz="0 0 0.25"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.2"/>
+            </geometry>
+        </visual>
+
+    </link>
+
+    <!-- Hook -->
+    <link name="hook">
+        <inertial>
+            <mass value="0.5"/>
+            <origin rpy="0 0 0" xyz="-0.4 0 0.3"/>
+            <inertia ixx="0.0395416666667" ixy="0" ixz="0" iyy="0.106208333333" iyz="0" izz="0.106208333333"/>
+        </inertial>
+        <collision name='hook1_collision'>
+            <origin rpy="0 0 0" xyz="-0.4 0 0.3"/>
+            <geometry>
+                <box size="0.8 0.1 0.1"/>
+            </geometry>
+        </collision>
+        <visual name='hook1_visual'>
+            <origin rpy="0 0 0" xyz="-0.4 0 0.3"/>
+            <geometry>
+                <box size="0.8 0.1 0.1"/>
+            </geometry>
+        </visual>
+        <collision name='hook2_collision'>
+            <origin rpy="0 0 0" xyz="-0.75 0 0.1075"/>
+            <geometry>
+                <box size="0.1 0.1 0.485"/>
+            </geometry>
+        </collision>
+        <visual name='hook2_visual'>
+            <origin rpy="0 0 0" xyz="-0.75 0 0.1075"/>
+            <geometry>
+                <box size="0.1 0.1 0.485"/>
+            </geometry>
+        </visual>
+        <collision name='hook3_collision'>
+            <origin rpy="0 0 0" xyz="-0.825 0 -0.085"/>
+            <geometry>
+                <box size="0.15 0.1 0.1"/>
+            </geometry>
+        </collision>
+        <visual name='hook3_visual'>
+            <origin rpy="0 0 0" xyz="-0.825 0 -0.085"/>
+            <geometry>
+                <box size="0.15 0.1 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+    <!-- AMR Wheel -->
+    <link name="left_wheel">
+        <inertial>
+            <mass value="0.2"/>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <inertia ixx="0.000526666666667" ixy="0" ixz="0" iyy="0.000526666666667" iyz="0" izz="0.001"/>
+        </inertial>
+        <collision name="left_wheel_collision">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </collision>
+        <visual name="left_wheel_visual">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="left_wheel">
+        <mu1>100000.0</mu1>
+        <mu2>100000.0</mu2>
+        <kp>1000000.0</kp> 
+        <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+    </gazebo>
+    <link name="right_wheel">
+        <inertial>
+            <mass value="0.2"/>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <inertia ixx="0.000526666666667" ixy="0" ixz="0" iyy="0.000526666666667" iyz="0" izz="0.001"/>
+        </inertial>
+        <collision name="right_wheel_collision">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </collision>
+        <visual name="right_wheel_visual">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="right_wheel">
+        <mu1>100000.0</mu1>
+        <mu2>100000.0</mu2>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+    </gazebo>
+
+    <!-- Cart -->
+    <link name="cart">
+        <inertial>
+            <mass value="10"/>
+            <origin rpy="0 0 0" xyz="-1.4 0 -0.1"/>
+            <inertia ixx="0.0395416666667" ixy="0" ixz="0" iyy="0.106208333333" iyz="0" izz="0.106208333333"/>
+        </inertial>
+
+        <!-- body -->
+        <collision name='cart_collision'>
+            <origin rpy="0 0 0" xyz="-1.4 0 -0.1"/>
+            <geometry>
+                <box size="1 0.8 0.1"/>
+            </geometry>
+        </collision>
+        <visual name='cart_visual'>
+            <origin rpy="0 0 0" xyz="-1.4 0 -0.1"/>
+            <geometry>
+                <box size="1 0.8 0.1"/>
+            </geometry>
+        </visual>
+        <collision name='wall1_collision'>
+            <origin rpy="0 0 0" xyz="-0.925 0 0.1"/>
+            <geometry>
+                <box size="0.05 0.8 0.3"/>
+            </geometry>
+        </collision>
+        <visual name='wall1_visual'>
+            <origin rpy="0 0 0" xyz="-0.925 0 0.1"/>
+            <geometry>
+                <box size="0.05 0.8 0.3"/>
+            </geometry>
+        </visual>
+        <collision name='wall2_collision'>
+            <origin rpy="0 0 0" xyz="-1.875 0 0.1"/>
+            <geometry>
+                <box size="0.05 0.8 0.3"/>
+            </geometry>
+        </collision>
+        <visual name='wall2_visual'>
+            <origin rpy="0 0 0" xyz="-1.875 0 0.1"/>
+            <geometry>
+                <box size="0.05 0.8 0.3"/>
+            </geometry>
+        </visual>
+        <collision name='wall3_collision'>
+            <origin rpy="0 0 0" xyz="-1.4 0.375 0.1"/>
+            <geometry>
+                <box size="0.9 0.05 0.3"/>
+            </geometry>
+        </collision>
+        <visual name='wall3_visual'>
+            <origin rpy="0 0 0" xyz="-1.4 0.375 0.1"/>
+            <geometry>
+                <box size="0.9 0.05 0.3"/>
+            </geometry>
+        </visual>
+        <collision name='wall4_collision'>
+            <origin rpy="0 0 0" xyz="-1.4 -0.375 0.1"/>
+            <geometry>
+                <box size="0.9 0.05 0.3"/>
+            </geometry>
+        </collision>
+        <visual name='wall4_visual'>
+            <origin rpy="0 0 0" xyz="-1.4 -0.375 0.1"/>
+            <geometry>
+                <box size="0.9 0.05 0.3"/>
+            </geometry>
+        </visual>
+        
+        <!-- caster -->
+        <collision name='cart_caster_collision_TL'>
+            <origin rpy="0 0 0" xyz="-0.95 0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+            </collision>
+            <visual name='cart_caster_visual_TL'>
+                <origin rpy="0 0 0" xyz="-0.95 0.35 -0.135"/>
+                <geometry>
+                    <sphere radius="0.05"/>
+                </geometry>
+            </visual>
+
+        <collision name='cart_caster_collision_TR'>
+            <origin rpy="0 0 0" xyz="-0.95 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='cart_caster_visual_TR'>
+            <origin rpy="0 0 0" xyz="-0.95 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
+        <collision name='cart_caster_collision_BL'>
+            <origin rpy="0 0 0" xyz="-1.85 0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='cart_caster_visual_BL'>
+            <origin rpy="0 0 0" xyz="-1.85 0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
+        <collision name='cart_caster_collision_BR'>
+            <origin rpy="0 0 0" xyz="-1.85 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='cart_caster_visual_BR'>
+            <origin rpy="0 0 0" xyz="-1.85 -0.35 -0.135"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+    </link>
+    <!-- Cart Wheel -->
+    <link name="left_cart_wheel">
+        <inertial>
+            <mass value="0.2"/>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <inertia ixx="0.000526666666667" ixy="0" ixz="0" iyy="0.000526666666667" iyz="0" izz="0.001"/>
+        </inertial>
+        <collision name="left_cart_wheel_collision">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </collision>
+        <visual name="left_cart_wheel_visual">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="left_cart_wheel">
+        <mu1>100000.0</mu1>
+        <mu2>100000.0</mu2>
+        <kp>1000000.0</kp> 
+        <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+    </gazebo>
+    <link name="right_cart_wheel">
+        <inertial>
+            <mass value="0.2"/>
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <inertia ixx="0.000526666666667" ixy="0" ixz="0" iyy="0.000526666666667" iyz="0" izz="0.001"/>
+        </inertial>
+        <collision name="right_cart_wheel_collision">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </collision>
+        <visual name="right_cart_wheel_visual">
+            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+            <geometry>
+                <cylinder length="0.05" radius="0.08"/>
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="right_cart_wheel">
+        <mu1>100000.0</mu1>
+        <mu2>100000.0</mu2>
+        <kp>1000000.0</kp>
+        <kd>100.0</kd>
+        <minDepth>0.001</minDepth>
+        <maxVel>1.0</maxVel>
+    </gazebo>
+
+    <joint type="continuous" name="joint_left_wheel">
+        <origin rpy="0 0 0" xyz="0 0.38 -0.11"/>
+        <child link="left_wheel"/>
+        <parent link="chassis"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+    </joint>
+
+    <joint type="continuous" name="joint_right_wheel">
+        <origin rpy="0 0 0" xyz="0 -0.38 -0.11"/>
+        <child link="right_wheel"/>
+        <parent link="chassis"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+    </joint>
+
+    <!-- <joint type="continuous" name="joint_hook">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <child link="hook"/>
+        <parent link="chassis"/>
+        <axis rpy="0 0 0" xyz="0 0 1"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+    </joint> -->
+
+    <joint type="revolute" name="joint_towing">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <child link="hook"/>
+            <parent link="chassis"/>
+            <axis rpy="0 0 0" xyz="0 0 1"/>
+            <limit effort="10000" velocity="1000" lower="-1.5707" upper="1.5707"/>
+            <joint_properties damping="1.0" friction="1.0"/>
+        </joint>
+
+    <joint type="fixed" name="joint_hook">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <child link="cart"/>
+        <parent link="hook"/>
+        <axis rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+
+    <joint type="continuous" name="joint_left_cart_wheel">
+        <origin rpy="0 0 0" xyz="-1.4 0.38 -0.11"/>
+        <child link="left_cart_wheel"/>
+        <parent link="cart"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+    </joint>
+
+    <joint type="continuous" name="joint_right_cart_wheel">
+        <origin rpy="0 0 0" xyz="-1.4 -0.38 -0.11"/>
+        <child link="right_cart_wheel"/>
+        <parent link="cart"/>
+        <axis rpy="0 0 0" xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000"/>
+        <joint_properties damping="1.0" friction="1.0"/>
+    </joint>
+
+    <transmission name="towing_tran">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint type="revolute" name="joint_towing">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_towing">
+            <!-- <hardwareInterface>EffortJointInterface</hardwareInterface> -->
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+
+
+    <!-- <include name="hokuyo">
+        <uri>model://hokuyo</uri>
+        <pose>0.45 0 0.4 0 0 0</pose>
+    </include>
+    <joint type="fixed" name="hokuyo_joint">
+        <child>hokuyo::link</child>
+        <parent>chassis</parent>
+    </joint> -->
+
+    <!-- <include name="camera">
+        <uri>model://camera</uri>
+        <pose>0.5 0 0.15 0 -0.25 0</pose>
+    </include>
+    <joint type="fixed" name="camera_joint">
+        <child>camera::link</child>
+        <parent>chassis</parent>
+    </joint> -->
+</robot>
