@@ -56,6 +56,8 @@
   <build_export_depend>urdf</build_export_depend>
   <build_export_depend>gazebo_ros</build_export_depend>
   <build_export_depend>rospy</build_export_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
   <exec_depend>urdf</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>rospy</exec_depend>
