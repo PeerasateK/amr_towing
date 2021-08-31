@@ -1,5 +1,6 @@
 <?xml version='1.0'?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Link Wheel -->
     <xacro:macro name="link_wheel" params="name">
         <link name="${name}">
             <inertial>
@@ -21,6 +22,7 @@
             </visual>
         </link>
     </xacro:macro>
+    <!-- Joint Wheel -->
     <xacro:macro name="joint_wheel" params="name parent child origin_xyz">
         <joint type="continuous" name="${name}">
             <origin rpy="0 0 0" xyz="${origin_xyz}"/>
@@ -31,6 +33,7 @@
             <joint_properties damping="1.0" friction="1.0"/>
         </joint>
     </xacro:macro>
+    <!-- Caster -->
     <xacro:macro name="caster" params="name origin_xyz">
         <collision name='${name}_collision'>
             <origin rpy="0 0 0" xyz="${origin_xyz}"/>
@@ -54,5 +57,33 @@
                 <sphere radius="0.05"/>
             </geometry>
         </visual>
+    </xacro:macro>
+    <!-- laser -->
+    <xacro:macro name="laser" params="name">
+        <link name="${name}">
+            <inertial>
+                <mass value="0.05"/>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <xacro:cylinder_inertia mass="0.05" l="0.03" r="0.05" />
+            </inertial>
+            <collision name="${name}_collision">
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <cylinder length="0.03" radius="0.05"/>
+                </geometry>
+            </collision>
+            <visual name="${name}_visual">
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <cylinder length="0.03" radius="0.05"/>
+                </geometry>
+            </visual>
+        </link>
+    </xacro:macro>
+    <!-- Inertia -->
+    <xacro:macro name="cylinder_inertia" params="mass r l">
+        <inertia  ixx="${mass*(3*r*r+l*l)/12}" ixy = "0" ixz = "0"
+                    iyy="${mass*(3*r*r+l*l)/12}" iyz = "0"
+                    izz="${mass*(r*r)/2}" />
     </xacro:macro>
 </robot>

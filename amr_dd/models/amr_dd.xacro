@@ -210,18 +210,14 @@
         <maxVel>1.0</maxVel>
     </gazebo>
 
+    <!-- Sensor -->
+    <xacro:laser name="sensor_laser_front"/>
+    <xacro:laser name="sensor_laser_back"/>
+    
+
+    <!-- Joint -->
     <xacro:joint_wheel name="joint_left_wheel" origin_xyz="0 0.38 -0.11" parent="chassis" child="left_wheel"/>
     <xacro:joint_wheel name="joint_right_wheel" origin_xyz="0 -0.38 -0.11" parent="chassis" child="right_wheel"/>
-
-    <!-- <joint type="continuous" name="joint_hook">
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <child link="hook"/>
-        <parent link="chassis"/>
-        <axis rpy="0 0 0" xyz="0 0 1"/>
-        <limit effort="10000" velocity="1000"/>
-        <joint_properties damping="1.0" friction="1.0"/>
-    </joint> -->
-
     <joint type="revolute" name="joint_towing">
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <child link="hook"/>
@@ -237,18 +233,25 @@
         <parent link="hook"/>
         <axis rpy="0 0 0" xyz="0 0 0"/>
     </joint>
-
     <xacro:joint_wheel name="joint_left_cart_wheel" origin_xyz="-1.4 0.38 -0.11" parent="cart" child="left_cart_wheel"/>
     <xacro:joint_wheel name="joint_right_cart_wheel" origin_xyz="-1.4 -0.38 -0.11" parent="cart" child="right_cart_wheel"/>
-
     <transmission name="towing_tran">
         <type>transmission_interface/SimpleTransmission</type>
         <joint type="revolute" name="joint_towing">
             <hardwareInterface>EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="motor_towing">
-            <!-- <hardwareInterface>EffortJointInterface</hardwareInterface> -->
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
+    <joint name="joint_sensor_laser_front" type="fixed">
+        <origin xyz="0.45 -0.35 0.165" rpy="0 0 0"/>
+        <parent link="chassis"/>
+        <child link="sensor_laser_front"/>
+    </joint>
+    <joint name="joint_sensor_laser_back" type="fixed">
+        <origin xyz="-0.45 0.35 0.165" rpy="0 0 0"/>
+        <parent link="chassis"/>
+        <child link="sensor_laser_back"/>
+    </joint>
 </robot>
