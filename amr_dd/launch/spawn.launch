@@ -2,7 +2,7 @@
 
 <launch>
 
-  <param name="robot_description" command="cat '$(find amr_dd)/models/amr_dd.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro '$(find amr_dd)/models/amr_dd.xacro'"/>
 
   <arg name="x" default="0"/>
   <arg name="y" default="0"/>

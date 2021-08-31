@@ -1,77 +1,11 @@
 <?xml version='1.0'?>
 
-<robot name="m2wr" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="amr_dd" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <material name="black">
-        <color rgba="0.0 0.0 0.0 1.0"/>
-    </material>
-    <material name="blue">
-        <color rgba="0.203125 0.23828125 0.28515625 1.0"/>
-    </material>
-    <material name="green">
-        <color rgba="0.0 0.8 0.0 1.0"/>
-    </material>
-    <material name="grey">
-        <color rgba="0.2 0.2 0.2 1.0"/>
-    </material>
-    <material name="orange">
-        <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
-    </material>
-    <material name="brown">
-        <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
-    </material>
-    <material name="red">
-        <color rgba="0.80078125 0.12890625 0.1328125 1.0"/>
-    </material>
-    <material name="white">
-        <color rgba="1.0 1.0 1.0 1.0"/>
-    </material>
-
-    <gazebo reference="chassis">
-        <material>Gazebo/Orange</material>
-    </gazebo>
-    <gazebo reference="left_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo>
-    <gazebo reference="right_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo>
-    <gazebo reference="hook">
-        <material>Gazebo/Green</material>
-    </gazebo>
-    <gazebo reference="cart">
-        <material>Gazebo/Black</material>
-    </gazebo>
-    <gazebo reference="left_cart_wheel">
-        <material>Gazebo/Red</material>
-    </gazebo>
-    <gazebo reference="right_cart_wheel">
-        <material>Gazebo/Red</material>
-    </gazebo>
-
-    <gazebo>
-        <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
-            <legacyMode>false</legacyMode>
-            <alwaysOn>true</alwaysOn>
-            <updateRate>20</updateRate>
-            <leftJoint>joint_left_wheel</leftJoint>
-            <rightJoint>joint_right_wheel</rightJoint>
-            <wheelSeparation>0.76</wheelSeparation>
-            <wheelDiameter>0.16</wheelDiameter>
-            <torque>0.1</torque>
-            <commandTopic>cmd_vel</commandTopic>
-            <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
-            <robotBaseFrame>chassis</robotBaseFrame>
-        </plugin>
-
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>/amr_dd</robotNamespace>
-        </plugin>
-    </gazebo>
+    <xacro:include filename="$(find amr_dd)/models/materials.xacro" />
+    <xacro:include filename="$(find amr_dd)/models/amr_dd.gazebo" />
+    <xacro:include filename="$(find amr_dd)/models/macros.xacro" />
     
-
-
     <link name='chassis'>
         <!-- pose and inertial -->
         <pose>0 0 0.185 0 0 0</pose>
@@ -248,25 +182,7 @@
         </visual>
     </link>
     <!-- AMR Wheel -->
-    <link name="left_wheel">
-        <inertial>
-            <mass value="0.2"/>
-            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-            <inertia ixx="0.000526666666667" ixy="0" ixz="0" iyy="0.000526666666667" iyz="0" izz="0.001"/>
-        </inertial>
-        <collision name="left_wheel_collision">
-            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-            <geometry>
-                <cylinder length="0.05" radius="0.08"/>
-            </geometry>
-        </collision>
-        <visual name="left_wheel_visual">
-            <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
-            <geometry>
-                <cylinder length="0.05" radius="0.08"/>
-            </geometry>
-        </visual>
-    </link>
+    <xacro:link_wheel name="left_wheel" />
     <gazebo reference="left_wheel">
         <mu1>100000.0</mu1>
         <mu2>100000.0</mu2>
@@ -593,24 +509,4 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
-    
-
-
-    <!-- <include name="hokuyo">
-        <uri>model://hokuyo</uri>
-        <pose>0.45 0 0.4 0 0 0</pose>
-    </include>
-    <joint type="fixed" name="hokuyo_joint">
-        <child>hokuyo::link</child>
-        <parent>chassis</parent>
-    </joint> -->
-
-    <!-- <include name="camera">
-        <uri>model://camera</uri>
-        <pose>0.5 0 0.15 0 -0.25 0</pose>
-    </include>
-    <joint type="fixed" name="camera_joint">
-        <child>camera::link</child>
-        <parent>chassis</parent>
-    </joint> -->
 </robot>
