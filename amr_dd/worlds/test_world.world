@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
-<sdf version='1.7'>
-  <model name='dd'>
+<sdf version='1.4'>
+  <world name='default'>
     <pose>1.025 -2.0875 0 0 -0 0</pose>
     <link name='Wall_0'>
       <collision name='Wall_0_Collision'>
@@ -301,5 +301,5 @@
       </collision>
     </link>
     <static>1</static>
-  </model>
+  </world>
 </sdf>

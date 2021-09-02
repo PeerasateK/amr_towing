@@ -245,12 +245,12 @@
         </actuator>
     </transmission>
     <joint name="joint_sensor_laser_front" type="fixed">
-        <origin xyz="0.45 -0.35 0.165" rpy="0 0 0"/>
+        <origin xyz="0.45 0 0.165" rpy="0 0 0"/>
         <parent link="chassis"/>
         <child link="sensor_laser_front"/>
     </joint>
     <joint name="joint_sensor_laser_back" type="fixed">
-        <origin xyz="-0.45 0.35 0.165" rpy="0 0 0"/>
+        <origin xyz="-0.45 0.35 0.165" rpy="0 0 3.14"/>
         <parent link="chassis"/>
         <child link="sensor_laser_back"/>
     </joint>

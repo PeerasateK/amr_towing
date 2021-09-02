@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
   std_msgs
   geometry_msgs
+  sensor_msgs
   message_generation
 )
 
@@ -74,6 +75,7 @@ generate_messages(
   DEPENDENCIES
   std_msgs
   geometry_msgs
+  sensor_msgs
 )
 
 ################################################
@@ -165,6 +167,7 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/plot_sim.py
   scripts/test_plot.py
+  scripts/reading_laser.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
