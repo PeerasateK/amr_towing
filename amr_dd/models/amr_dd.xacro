@@ -6,6 +6,14 @@
     <xacro:include filename="$(find amr_dd)/models/amr_dd.gazebo" />
     <xacro:include filename="$(find amr_dd)/models/macros.xacro" />
     
+    <link name="base_footprint"/>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="chassis"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+    </joint>
+  
     <link name='chassis'>
         <!-- pose and inertial -->
         <pose>0 0 0.185 0 0 0</pose>
@@ -228,11 +236,11 @@
         </joint>
 
     <joint type="fixed" name="joint_hook">
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-        <child link="cart"/>
-        <parent link="hook"/>
-        <axis rpy="0 0 0" xyz="0 0 0"/>
-    </joint>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <child link="cart"/>
+            <parent link="hook"/>
+            <axis rpy="0 0 0" xyz="0 0 0"/>
+        </joint>
     <xacro:joint_wheel name="joint_left_cart_wheel" origin_xyz="-1.4 0.38 -0.11" parent="cart" child="left_cart_wheel"/>
     <xacro:joint_wheel name="joint_right_cart_wheel" origin_xyz="-1.4 -0.38 -0.11" parent="cart" child="right_cart_wheel"/>
     <transmission name="towing_tran">

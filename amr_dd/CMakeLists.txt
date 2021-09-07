@@ -10,9 +10,12 @@ project(amr_dd)
 find_package(catkin REQUIRED COMPONENTS
   urdf
   rospy
+  tf
   gazebo_ros
   std_msgs
   geometry_msgs
+  nav_msgs
+  openslam_gmapping
   sensor_msgs
   message_generation
 )
@@ -76,6 +79,7 @@ generate_messages(
   std_msgs
   geometry_msgs
   sensor_msgs
+  nav_msgs
 )
 
 ################################################
@@ -110,7 +114,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES amr_dd
-  CATKIN_DEPENDS urdf gazebo_ros rospy message_runtime
+  CATKIN_DEPENDS urdf gazebo_ros rospy message_runtime tf
 #  DEPENDS system_lib
 )
 

@@ -7,7 +7,7 @@ from geometry_msgs.msg import *
 from math import *
 from amr_dd.msg import boundary_cart
 import numpy as np
-
+from tf import transformations
 
 pos_amr = [0,0]
 pos_hook = 0
@@ -18,8 +18,10 @@ def find_pos_cart(pos_amr,Q,pos_hook):
     q1 = Q.x
     q2 = Q.y
     q3 = Q.z
+    quaternion = (q1,q2,q3,q0)
     pos_w_cart=[]
-    yaw_amr   = atan2(2.0 * (q3 * q0 + q1 * q2) , - 1.0 + 2.0 * (q0 * q0 + q1 * q1))
+    euler = transformations.euler_from_quaternion(quaternion)
+    yaw_amr = euler[2]
     homo_w_amr = np.array([[np.cos(yaw_amr), -np.sin(yaw_amr), 0,pos_amr[0]],
                         [np.sin(yaw_amr), np.cos(yaw_amr), 0,pos_amr[1]],
                         [0, 0, 1,0],
