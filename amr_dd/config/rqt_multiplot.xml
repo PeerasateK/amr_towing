@@ -283,7 +283,7 @@
                         <visible>true</visible>
                     </legend>
                     <plot_rate>30</plot_rate>
-                    <title>Untitled Plot</title>
+                    <title>plot area of amr</title>
                 </column_0>
             </row_0>
         </plots>

@@ -62,6 +62,10 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         cart:
           Alpha: 1
           Show Axes: false
@@ -135,7 +139,7 @@ Visualization Manager:
       Selectable: true
       Size (Pixels): 3
       Size (m): 0.009999999776482582
-      Style: Flat Squares
+      Style: Points
       Topic: /amr_dd/laser/scanF
       Unreliable: false
       Use Fixed Frame: true
@@ -179,7 +183,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 17.421106338500977
+      Distance: 21.85303497314453
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -215,5 +219,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1267
-  X: 72
-  Y: 27
+  X: 630
+  Y: 78
