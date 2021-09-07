@@ -5,6 +5,7 @@
     <xacro:include filename="$(find amr_dd)/models/materials.xacro" />
     <xacro:include filename="$(find amr_dd)/models/amr_dd.gazebo" />
     <xacro:include filename="$(find amr_dd)/models/macros.xacro" />
+    <xacro:include filename="$(find amr_dd)/urdf/_d435.urdf.xacro" />
     
     <link name="base_footprint"/>
 
@@ -221,6 +222,10 @@
     <!-- Sensor -->
     <xacro:laser name="sensor_laser_front"/>
     <xacro:laser name="sensor_laser_back"/>
+
+    <xacro:sensor_d435 name="camera" topics_ns="camera" parent="chassis" publish_pointcloud="true">
+        <origin xyz="0.51 0 -0.05" rpy="0 -0.2 0" />
+    </xacro:sensor_d435>  
     
 
     <!-- Joint -->
@@ -246,7 +251,7 @@
     <transmission name="towing_tran">
         <type>transmission_interface/SimpleTransmission</type>
         <joint type="revolute" name="joint_towing">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="motor_towing">
             <mechanicalReduction>1</mechanicalReduction>

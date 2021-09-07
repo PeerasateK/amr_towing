@@ -37,11 +37,18 @@
             <rightJoint>joint_right_wheel</rightJoint>
             <wheelSeparation>0.76</wheelSeparation>
             <wheelDiameter>0.16</wheelDiameter>
-            <torque>0.1</torque>
+            <wheelAcceleration>1.0</wheelAcceleration>
+            <wheelTorque>20</wheelTorque>
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
             <robotBaseFrame>base_footprint</robotBaseFrame>
+            <odometrySource>world</odometrySource>
+            <publishTf>true</publishTf>
+            <publishWheelTF>true</publishWheelTF>
+            <publishOdom>true</publishOdom>
+            <publishOdomTF>true</publishOdomTF>
+            <publishWheelJointState>true</publishWheelJointState>
         </plugin>
     </gazebo>
 
