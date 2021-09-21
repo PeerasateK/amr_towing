@@ -1,13 +1,5 @@
-active_ = 0
-state_ = 2
-msg = 0
-while 1:
-    print(msg)
-    if not active_:
-        continue
-    msg = 1
-    if state_ == 0:
-        msg = 2
-    elif state_ == 1:
-        msg = 3
-    print(msg)
+from tf import transformations
+
+a=1.5707
+b=transformations.quaternion_from_euler(0,0,a,'sxyz')
+print(b[0])

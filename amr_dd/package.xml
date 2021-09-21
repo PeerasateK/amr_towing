@@ -56,6 +56,10 @@
   <build_depend>nav_msgs</build_depend>
   <build_depend>openslam_gmapping</build_depend>
   <build_depend>tf</build_depend>
+  <depend>actionlib</depend>
+  <depend>actionlib_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
   <build_export_depend>urdf</build_export_depend>
   <build_export_depend>gazebo_ros</build_export_depend>
   <build_export_depend>rospy</build_export_depend>

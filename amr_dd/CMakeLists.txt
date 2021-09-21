@@ -11,12 +11,14 @@ find_package(catkin REQUIRED COMPONENTS
   urdf
   rospy
   tf
+  actionlib
   gazebo_ros
   std_msgs
   geometry_msgs
   nav_msgs
-  openslam_gmapping
   sensor_msgs
+  actionlib_msgs
+  openslam_gmapping
   message_generation
 )
 
@@ -80,6 +82,7 @@ generate_messages(
   geometry_msgs
   sensor_msgs
   nav_msgs
+  actionlib_msgs
 )
 
 ################################################
@@ -114,7 +117,17 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES amr_dd
-  CATKIN_DEPENDS urdf gazebo_ros rospy message_runtime tf
+  CATKIN_DEPENDS 
+    urdf 
+    actionlib
+    actionlib_msgs
+    sensor_msgs
+    geometry_msgs
+    nav_msgs
+    gazebo_ros 
+    rospy 
+    message_runtime 
+    tf
 #  DEPENDS system_lib
 )
 
@@ -172,6 +185,7 @@ catkin_install_python(PROGRAMS
   scripts/plot_sim.py
   scripts/test_plot.py
   scripts/reading_laser.py
+  scripts/togo.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

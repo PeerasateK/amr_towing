@@ -37,8 +37,8 @@
             <rightJoint>joint_right_wheel</rightJoint>
             <wheelSeparation>0.76</wheelSeparation>
             <wheelDiameter>0.16</wheelDiameter>
-            <wheelAcceleration>1.0</wheelAcceleration>
-            <wheelTorque>20</wheelTorque>
+            <wheelAcceleration>0</wheelAcceleration>
+            <wheelTorque>1</wheelTorque>
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
